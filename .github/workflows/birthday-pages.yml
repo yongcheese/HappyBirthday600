@@ -1,0 +1,44 @@
+name: Publish birthday website
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'public/maison/**'
+      - 'public/birthday-3d/vendor/**'
+      - 'public/birthday-3d/assets/tuscan/garden-sunset.hdr'
+      - 'public/birthday-3d/assets/tuscan/ENVIRONMENT.txt'
+      - 'scripts/build-birthday-pages.mjs'
+      - '.github/workflows/birthday-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: birthday-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/configure-pages@v5
+      - name: Package the static birthday website
+        run: node scripts/build-birthday-pages.mjs
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
