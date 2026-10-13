@@ -1,12 +1,12 @@
 import * as T from 'three';
-import {buildScene} from './scene.js?v=20261013-birthday01';
-import {createLetterMotion} from './letter-motion.js?v=20261013-birthday01';
-import {memories,galleryPhotos} from './content.js?v=20261013-birthday01';
-import {createTour} from './tour.js?v=20261013-birthday01';
-import {birthdayVideo} from './delivery-config.js?v=20261013-birthday01';
-import {createBirthdayVideo} from './birthday-video.js?v=20261013-birthday01';
-import {createMusic} from './music.js?v=20261013-birthday01';
-import {createCelebration} from './celebration.js?v=20261013-birthday01';
+import {buildScene} from './scene.js?v=20261013-birthday02';
+import {createLetterMotion} from './letter-motion.js?v=20261013-birthday02';
+import {memories,galleryPhotos} from './content.js?v=20261013-birthday02';
+import {createTour} from './tour.js?v=20261013-birthday02';
+import {birthdayVideo} from './delivery-config.js?v=20261013-birthday02';
+import {createBirthdayVideo} from './birthday-video.js?v=20261013-birthday02';
+import {createMusic} from './music.js?v=20261013-birthday02';
+import {createCelebration} from './celebration.js?v=20261013-birthday02';
 const music=createMusic();
 const birthdayFilm=createBirthdayVideo(birthdayVideo,{beforePlay:()=>music.stop(),afterEnded:()=>startCelebration()});
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -69,7 +69,7 @@ window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setT
  tour=createTour({mobile:mobile(),aspect:innerWidth/innerHeight});motion?.resize();invalidate();
 },100)});
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden){cancelAnimationFrame(raf);raf=0;state.playing=false;updateUI()}else invalidate()});
-async function init(){try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(pixelRatio());renderer.setSize(innerWidth,innerHeight,false);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;$('world').append(renderer.domElement);scene=new T.Scene();camera=new T.PerspectiveCamera(mobile()?53:46,innerWidth/innerHeight,.05,150);const assets=await buildScene(scene,renderer,invalidate);celebration=createCelebration({camera,cake:assets.cake,reduced,onWake:invalidate,onFinish:showEnding});motion=createLetterMotion(scene,assets.letter,camera,reduced,showPage,()=>{$('world').inert=false;document.querySelector('header').inert=false;$('book').removeAttribute('aria-modal');document.body.classList.remove('reading-letter');document.body.classList.add('letter-finished');startCelebration()});cameraPose();await renderer.compileAsync(scene,camera);state.loaded=true;$('loading').hidden=true;$('start').disabled=false;renderer.render(scene,camera);renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();fail(new Error('3D 顯示中斷，請重新載入。'))});invalidate()}catch(e){fail(e)}}
+async function init(){try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(pixelRatio());renderer.setSize(innerWidth,innerHeight,false);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;$('world').append(renderer.domElement);scene=new T.Scene();camera=new T.PerspectiveCamera(mobile()?53:46,innerWidth/innerHeight,.05,150);const assets=await buildScene(scene,renderer,invalidate);celebration=createCelebration({camera,cake:assets.cake,reduced,onWake:invalidate,onFinish:showEnding});motion=createLetterMotion(scene,assets.letter,camera,reduced,showPage,()=>{$('world').inert=false;document.querySelector('header').inert=false;$('book').removeAttribute('aria-modal');document.body.classList.remove('reading-letter');document.body.classList.add('letter-finished');if(birthdayFilm.refresh().ready)showEnding();else startCelebration()});cameraPose();await renderer.compileAsync(scene,camera);state.loaded=true;$('loading').hidden=true;$('start').disabled=false;renderer.render(scene,camera);renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();fail(new Error('3D 顯示中斷，請重新載入。'))});invalidate()}catch(e){fail(e)}}
 const seal=new T.Vector3(),previousPosition=new T.Vector3(),previousQuaternion=new T.Quaternion();let previousFov=-1,previousOpening=-1;
 function frame(now){
  raf=0;if(failed||document.hidden)return;inFrame=true;

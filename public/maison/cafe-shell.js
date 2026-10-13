@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {softBox} from './soft-geometry.js?v=20261013-birthday01';
+import {softBox} from './soft-geometry.js?v=20261013-birthday02';
 // The gallery footprint and doorway stay aligned with the existing camera path.
 // Every timber, pane, roof panel and patio furnishing remains editable here.
 export function createCafeShell({add,box,rounded,mat,canvasTexture,plaster,paving}){
