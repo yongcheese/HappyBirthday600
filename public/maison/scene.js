@@ -2,8 +2,8 @@ import * as T from 'three';
 import { GLTFLoader } from '../birthday-3d/vendor/GLTFLoader.js';
 import { HDRLoader } from '../birthday-3d/vendor/HDRLoader.js';
 import { mergeGeometries } from '../birthday-3d/vendor/BufferGeometryUtils.js';
-import { galleryPhotos } from './content.js?v=20261011-apple01';
-import {createCafeShell} from './cafe-shell.js?v=20261011-apple01';
+import { galleryPhotos } from './content.js?v=20261013-birthday01';
+import {createCafeShell} from './cafe-shell.js?v=20261013-birthday01';
 const PI=Math.PI;
 let seed=912;const rnd=()=>((seed=Math.imul(seed,1664525)+1013904223|0)>>>0)/4294967296;
 export async function buildScene(scene,renderer,invalidate){
@@ -145,11 +145,12 @@ export async function buildScene(scene,renderer,invalidate){
   cakePart(new T.LatheGeometry(fruitProfile,16),berry,x,1.28,z,'Strawberry');
   for(let j=0;j<3;j++){const angle=j*PI*2/3,leaf=cakePart(new T.SphereGeometry(.023,8,5),leafmat,x+Math.cos(angle)*.013,1.285,z+Math.sin(angle)*.013,'Strawberry leaf');leaf.scale.set(1,.15,.45);leaf.rotation.y=-angle}
  }
- const flameMat=mat('Cake candle flame','#fff2b5');flameMat.emissive=new T.Color('#ffc76c');flameMat.emissiveIntensity=1.4;
+ const flames=new T.Group();flames.name='Birthday candle flames';flames.visible=false;root.add(flames);
+ const flameMat=new T.MeshBasicMaterial({color:'#ffd784'});
  for(const [x,z,h] of [[-.075,.005,.115],[.075,.005,.115],[0,-.065,.15]]){
   cakePart(new T.CylinderGeometry(.013,.013,h,12),sage,x,1.28+h/2,z,'Birthday candle');
   cakePart(new T.CylinderGeometry(.003,.003,.022,6),wood,x,1.28+h+.008,z,'Candle wick');
-  const flame=cakePart(new T.SphereGeometry(.019,10,8),flameMat,x,1.28+h+.036,z,'Candle flame');flame.scale.set(.72,1.65,.72);
+  const flame=new T.Mesh(new T.SphereGeometry(.019,10,8),flameMat);flame.position.set(cakeX+x,1.28+h+.036,cakeZ+z);flame.scale.set(.72,1.65,.72);flame.userData.baseScale=flame.scale.clone();flames.add(flame);
  }
  // Organic foliage: shared instanced leaf meshes, never sphere-shaped tree crowns.
  const leaves=[];const petals=[];const leafColors=['#65764f','#818d62','#97a173','#72835a'];
@@ -180,5 +181,5 @@ export async function buildScene(scene,renderer,invalidate){
  // Environment is optional: core interactive scene is already ready if it fails.
  new HDRLoader().load('../birthday-3d/assets/tuscan/garden-sunset.hdr',t=>{t.mapping=T.EquirectangularReflectionMapping;scene.environment=t;scene.environmentIntensity=.28;scene.environmentRotation.y=2.2;invalidate();},undefined,()=>{});
  renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
- return {letter:letter.scene,root};
+ return {letter:letter.scene,root,cake:{flames,center:[cakeX,1.24,cakeZ]}};
 }

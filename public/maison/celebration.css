@@ -1,0 +1,22 @@
+#celebration{position:fixed;inset:0;z-index:19;pointer-events:none;color:#284439}
+#candlePrompt{position:absolute;bottom:calc(34px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 36px));text-align:center;pointer-events:auto;background:#fff8eeed;border:1px solid #d9cbb9;border-radius:22px;padding:20px 22px;box-shadow:0 6px 24px #5b44331c}
+#candlePrompt p{font-size:21px;font-weight:600;margin:0 0 14px;line-height:1.5}
+#lightCandles,#acceptBirthday{font-size:17px;min-height:50px;padding:12px 26px;border:0;border-radius:28px;background:#284439;color:#fffaf1}
+#skipCelebration{position:absolute;top:calc(24px + env(safe-area-inset-top));right:24px;pointer-events:auto;border:1px solid #c4bbae;background:#fff8eeeb;color:#284439;border-radius:28px;padding:10px 16px;font-size:14px;min-height:44px}
+#foamLens{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#foamLens i{position:absolute;width:38vmax;height:38vmax;max-width:550px;max-height:550px;border-radius:46% 54% 51% 49%;background:radial-gradient(circle at 36% 25%,#fff 15%,#f5f8f8 53%,#e0e8e7 76%,#fafcfc 87%);box-shadow:inset 3px 4px 18px #fff,inset -7px -8px 16px #c3d4d541;will-change:transform,opacity}
+#foamLens:after{content:"";position:absolute;inset:0;background:#fcfdfb;opacity:0}.foam-hit #foamLens:after{animation:lens-cover 2.7s ease both}
+#foamCan{position:absolute;left:-80px;bottom:-70px;width:54px;height:140px;border-radius:15px 15px 7px 7px;background:linear-gradient(90deg,#8abcc4,#d9eced 48%,#8abcc4);border:1px solid #69919a;transform:rotate(35deg);opacity:0}
+#foamCan:before{content:"";position:absolute;top:-18px;left:8px;width:40px;height:20px;border-radius:7px;background:#f8fcfb;box-shadow:20px -5px 0 -3px #fff}
+#foamCan:after{content:"生日快樂";position:absolute;top:36px;left:9px;width:34px;font-size:14px;line-height:1.25;text-align:center;color:#345b61}
+.foam-hit #foamCan{animation:can-enter 2s ease both}
+#birthdayEgg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fbf6ecef;text-align:center;pointer-events:auto;animation:egg-enter .6s ease both}
+#birthdayEgg .egg-cake{font-size:52px;margin-bottom:18px}#birthdayEgg h2{font-size:clamp(29px,5vw,42px);font-weight:600;line-height:1.5;margin:0 0 16px;font-family:"Songti TC","Noto Serif TC",serif}
+#birthdayEgg p{font-size:18px;line-height:1.85;max-width:540px;margin:0 0 16px}#birthdayEgg .egg-joke{font-size:16px;color:#746252;margin:0 0 26px}
+@keyframes lens-cover{0%,35%,100%{opacity:0}54%,72%{opacity:.95}}
+@keyframes can-enter{0%{transform:translate(0,0) rotate(35deg);opacity:0}20%,70%{transform:translate(110px,-120px) rotate(35deg);opacity:1}100%{transform:translate(0,0) rotate(35deg);opacity:0}}
+@keyframes egg-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:600px){#birthdayEgg p{font-size:17px}#birthdayEgg .egg-joke{font-size:15px}#candlePrompt p{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.foam-hit #foamLens:after{animation:lens-cover .8s ease both}#foamCan{display:none}#birthdayEgg{animation:none}}
+
+body.celebrating #restart,body.celebrating #musicDock{visibility:hidden;pointer-events:none}

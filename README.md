@@ -1,6 +1,6 @@
 # 六百，生日快樂！
 
-可用手機、平板或電腦開啟的互動生日展：走進小屋看照片、打開信件，左右滑動閱讀，再把信收好。
+可用手機、平板或電腦開啟的互動生日展：走進小屋看照片、打開信件，左右滑動閱讀，再把信收好、點亮生日蠟燭，看刮鬍泡的小驚喜。
 
 正式網址：https://yongcheese.github.io/HappyBirthday600/
 
@@ -18,18 +18,18 @@
 
 ```sh
 node scripts/build-birthday-pages.mjs
-python3 -m http.server 4180 --directory dist/pages
+node scripts/preview-birthday.mjs dist/pages 4180
 ```
 
 打開 http://localhost:4180/。
 
-GitHub Pages 的 Source 設為 **GitHub Actions**。推送網站更新到 `main` 後，`Publish birthday website` 工作流程會打包並上線。也可以在 Actions 手動執行。成品僅包含網站使用的程式與素材，約 6 MB。
+GitHub Pages 的 Source 設為 **GitHub Actions**。推送網站更新到 `main` 後，`Publish birthday website` 工作流程會打包並上線。也可以在 Actions 手動執行。成品僅包含網站使用的程式與素材，約 17 MB。
 
 ## 影片
 
-照片與信件隨時可以看；只有影片設定在 **2026/10/14 17:00（台灣時間）** 開放。目前尚未加入正式影片。
+照片與信件隨時可以看；只有影片設定在 **2026/10/14 17:00（台灣時間）** 開放。已加入 58 秒直式照片回顧影片，搭配原創鋼琴配樂。播放結束會接回生日蠟燭與刮鬍泡彩蛋。
 
-完成影片後設定 `delivery-config.js` 的 `src`。若使用站內影片，須同時把影片加入建置腳本的複製清單。開放時間是裝置端介面控制，並非限制提前存取檔案的伺服器授權。
+替換影片時設定 `delivery-config.js` 的 `src`，並更新 `public/maison/assets/video/` 的檔案。開放時間是裝置端介面控制，並非限制提前存取檔案的伺服器授權。
 
 ## 素材
 

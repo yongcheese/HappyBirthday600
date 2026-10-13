@@ -4,7 +4,7 @@ export function videoAvailability(config,now=Date.now()){
  const locked=!valid||now<opening;
  return {locked,ready:!locked&&Boolean(config.src?.trim()),opening};
 }
-export function createBirthdayVideo(config,{beforePlay=()=>{}}={}){
+export function createBirthdayVideo(config,{beforePlay=()=>{},afterEnded=()=>{}}={}){
  const button=document.getElementById('watchVideo'),status=document.getElementById('videoAvailability');
  const dialog=document.getElementById('birthdayVideoDialog'),video=document.getElementById('birthdayVideo'),error=document.getElementById('videoError');
  let timer=0;
@@ -33,6 +33,7 @@ export function createBirthdayVideo(config,{beforePlay=()=>{}}={}){
  document.getElementById('backFromVideo').addEventListener('click',close);
  dialog.addEventListener('cancel',event=>{event.preventDefault();close()});
  dialog.addEventListener('close',()=>video.pause());
+ video.addEventListener('ended',()=>{close();afterEnded()});
  video.addEventListener('error',()=>{error.hidden=false});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(timer);else refresh()});
  refresh();
