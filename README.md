@@ -23,7 +23,7 @@ node scripts/preview-birthday.mjs dist/pages 4180
 
 打開 http://localhost:4180/。
 
-GitHub Pages 的 Source 設為 **GitHub Actions**。推送網站更新到 `main` 後，`Publish birthday website` 工作流程會打包並上線。也可以在 Actions 手動執行。成品僅包含網站使用的程式與素材，約 17 MB。
+GitHub Pages 的 Source 設為 **GitHub Actions**。推送網站更新到 `main` 後，`Publish birthday website` 工作流程會打包並上線。也可以在 Actions 手動執行。成品僅包含網站使用的程式與素材，約 10 MB。
 
 ## 影片
 
