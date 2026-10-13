@@ -2,8 +2,8 @@ import * as T from 'three';
 import { GLTFLoader } from '../birthday-3d/vendor/GLTFLoader.js';
 import { HDRLoader } from '../birthday-3d/vendor/HDRLoader.js';
 import { mergeGeometries } from '../birthday-3d/vendor/BufferGeometryUtils.js';
-import { galleryPhotos } from './content.js?v=20261013-film05';
-import {createCafeShell} from './cafe-shell.js?v=20261013-film05';
+import { galleryPhotos } from './content.js?v=20261014-letter01';
+import {createCafeShell} from './cafe-shell.js?v=20261014-letter01';
 const PI=Math.PI;
 let seed=912;const rnd=()=>((seed=Math.imul(seed,1664525)+1013904223|0)>>>0)/4294967296;
 export async function buildScene(scene,renderer,invalidate){
