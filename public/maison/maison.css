@@ -72,26 +72,14 @@ body.started .birthday-confetti{opacity:0;visibility:hidden}
 #intro>p{color:#314638;letter-spacing:.07em;font-size:14px;line-height:2}
 .intro-meta{color:#334638;font-size:10px;text-shadow:0 1px 8px #fff}
 #ending{overflow-y:auto}#ending .eyebrow{margin:0}#ending .end-flower{margin:12px 0 0}
-#videoInvitation{width:min(510px,100%);margin:20px 0 4px;padding:18px 20px;border:1px solid #c5ae8d;border-radius:16px;background:#fffaf0b5;display:grid;grid-template-columns:34px 1fr;gap:12px;text-align:left}
-.video-mark{width:32px;height:32px;border:1px solid #bca381;border-radius:50%;display:grid;place-items:center;font-size:11px;color:#946746;margin-top:4px}
-#videoInvitation h3{font-size:14px;font-weight:500;margin:2px 0 8px;color:#344636;line-height:1.7}
-#videoAvailability{font-size:12px;line-height:1.8;margin:0;color:#6b5642}
-#videoInvitation #watchVideo{grid-column:2;margin:0;padding:9px 14px;min-height:42px;justify-self:start;font-size:12px;background:#30473a;color:#fff7e9;border:0}
-#watchVideo:disabled{background:#d9d4c8!important;color:#655e51!important;opacity:1;cursor:default}
-#birthdayVideoDialog{width:min(900px,calc(100vw - 24px));max-height:calc(100dvh - 24px);border:1px solid #d3c2a4;border-radius:18px;background:#f5f0e5;color:#243b32;padding:24px;overflow:auto}
-#birthdayVideoDialog::backdrop{background:#18231ce8}
-#birthdayVideoDialog h2{font:400 24px/1.5 'Songti TC',serif;margin:0 45px 18px 0}
-#closeBirthdayVideo{position:absolute;top:12px;right:12px;border:0;border-radius:50%;background:#e5ddce;color:#314638;width:44px;height:44px;font-size:26px}
-#birthdayVideo{display:block;width:100%;max-height:65dvh;object-fit:contain;background:#16211a;border-radius:8px}
-#backFromVideo{display:block;margin:16px auto 0;border:1px solid #9b9f89;border-radius:25px;padding:12px 20px;background:none;color:inherit;min-height:44px}
-#videoError{font-size:13px;line-height:1.8}
+
 @media(max-width:600px){
  .birthday-candles{margin-top:12px;height:28px;gap:7px}.birthday-candles i{height:15px;width:6px}.birthday-candles i:nth-child(2){height:22px}.birthday-candles i:before{width:6px;height:9px;top:-11px}
  #intro .invitation-line{font-size:9px}#intro h1{margin:12px 0}#intro>p{font-size:12px;line-height:1.9;margin-bottom:18px}
  .intro-meta{font-size:8px;display:block;line-height:1.8}.intro-meta span:nth-child(2){display:block}
  .photo{height:clamp(155px,28dvh,235px)}.words{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;padding-bottom:4px}.words #pageText{font-size:14px;line-height:1.8}.words h2{font-size:20px;line-height:1.4;margin:10px 0}.card-signature{margin-top:12px}
- #ending{padding:26px 22px}#ending h2{font-size:30px;margin:12px 0}#ending>p:not(.eyebrow){font-size:13px;line-height:1.8;margin:8px 0}#videoInvitation{padding:14px;margin-top:16px;gap:9px}#videoInvitation h3{font-size:13px}#ending #readAgain{margin-top:15px;padding:11px 20px}#ending #homeAgain{margin-top:2px;padding:8px 15px}
- #birthdayVideoDialog{padding:18px}#birthdayVideoDialog h2{font-size:21px}
+ #ending{padding:26px 22px}#ending h2{font-size:30px;margin:12px 0}#ending>p:not(.eyebrow){font-size:13px;line-height:1.8;margin:8px 0}#ending #readAgain{margin-top:15px;padding:11px 20px}#ending #homeAgain{margin-top:2px;padding:8px 15px}
+
 }
 @media(max-width:600px) and (max-height:700px){#intro{bottom:62px}.birthday-candles{margin-top:8px;height:24px}#intro h1{font-size:29px;margin:8px 0}#intro>p{font-size:11px;margin-bottom:12px}.photo{height:150px}.words #pageText{font-size:13px;line-height:1.75}.words h2{font-size:18px}.card-signature{margin-top:9px}#ending{justify-content:flex-start;padding-top:24px}#ending .end-flower{font-size:28px}}
 @media(prefers-reduced-motion:reduce){.birthday-confetti i{animation:none}}

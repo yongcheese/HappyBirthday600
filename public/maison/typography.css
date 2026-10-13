@@ -47,14 +47,10 @@ body.started header{justify-content:flex-start}
 #ending>.eyebrow,#ending>.end-flower{display:none}
 #ending h2{font-weight:600;font-size:40px;letter-spacing:.02em;margin:0 0 18px}
 #ending>p:not(.eyebrow){font-size:18px;line-height:1.85;letter-spacing:.015em;color:var(--ink);margin:0}
-#videoInvitation{margin-top:26px;padding:20px;background:#fffaf0;border-color:#b7baa6}
-#videoInvitation h3{font-size:18px;font-weight:600;line-height:1.6}
-#videoAvailability{font-size:15px;line-height:1.7;color:var(--muted)}
-#videoInvitation #watchVideo{font-size:16px;min-height:46px;padding:10px 18px}
+
 #ending #readAgain,#ending #homeAgain{font-size:15px;min-height:44px;padding:10px 20px}
 #ending #readAgain{margin-top:22px}#ending #homeAgain{margin-top:6px}
-#birthdayVideoDialog h2{font-weight:600;font-size:28px}
-#backFromVideo,#videoError{font-size:16px}
+
 #credits{font-size:12px;color:var(--muted);bottom:12px;right:20px}
 #credits[open]{line-height:1.6;max-width:min(340px,calc(100vw - 32px));background:#fffaf0}
 #loading p{font-size:16px;letter-spacing:.02em}
@@ -83,10 +79,7 @@ body.started header{justify-content:flex-start}
  #ending{padding:36px 22px 88px;justify-content:safe center}
  #ending h2{font-size:30px;margin:0 0 16px}
  #ending>p:not(.eyebrow){font-size:17px;line-height:1.8}
- #videoInvitation{padding:16px;gap:10px;margin-top:22px;grid-template-columns:1fr}
- .video-mark{display:none}#videoInvitation #watchVideo{grid-column:1}
- #videoInvitation h3{font-size:17px}#videoAvailability{font-size:15px}
- #birthdayVideoDialog h2{font-size:24px}
+
 }
 @media(max-width:600px) and (max-height:700px){
  #intro{bottom:40px;left:20px;right:20px}#intro h1{font-size:29px;margin:10px 0 12px}

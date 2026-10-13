@@ -1,14 +1,11 @@
 import * as T from 'three';
-import {buildScene} from './scene.js?v=20261014-cake01';
-import {createLetterMotion} from './letter-motion.js?v=20261014-cake01';
-import {memories,galleryPhotos} from './content.js?v=20261014-cake01';
-import {createTour} from './tour.js?v=20261014-cake01';
-import {birthdayVideo} from './delivery-config.js?v=20261014-cake01';
-import {createBirthdayVideo} from './birthday-video.js?v=20261014-cake01';
-import {createMusic} from './music.js?v=20261014-cake01';
-import {createCelebration} from './celebration.js?v=20261014-cake01';
+import {buildScene} from './scene.js?v=20261014-finale02';
+import {createLetterMotion} from './letter-motion.js?v=20261014-finale02';
+import {memories,galleryPhotos} from './content.js?v=20261014-finale02';
+import {createTour} from './tour.js?v=20261014-finale02';
+import {createMusic} from './music.js?v=20261014-finale02';
+import {createCelebration} from './celebration.js?v=20261014-finale02';
 const music=createMusic();
-const birthdayFilm=createBirthdayVideo(birthdayVideo,{beforePlay:()=>music.stop(),afterEnded:()=>startCelebration()});
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const state={loaded:false,started:false,playing:false,progress:0,yaw:0,pitch:0,page:0};
 let renderer,scene,camera,motion,celebration,dirty=true,failed=false,last=performance.now(),pointer=null,phaseBefore='',travelTo=null;
@@ -39,10 +36,10 @@ function updateUI(){const p=state.progress,view=tour.sample(p);music.update(stat
 }
 function setProgress(p){state.progress=clamp(p);if(state.progress===1)state.playing=false;state.yaw=state.pitch=0;invalidate();updateUI()}
 function begin(){if(!state.loaded)return;prepareMemories();music.prepare();state.started=true;state.playing=!reduced;document.body.classList.add('started');$('intro').classList.add('out');$('intro').inert=true;$('controls').hidden=false;updateUI();wake()}
-function reset(){document.body.classList.remove('reading-letter','letter-finished');birthdayFilm.reset();celebration?.reset();music.reset();motion?.reset();state.started=state.playing=false;travelTo=null;$('ending').hidden=true;$('intro').classList.remove('out');$('intro').inert=false;document.body.classList.remove('started');$('controls').hidden=true;setProgress(0);$('start').focus({preventScroll:true})}
+function reset(){document.body.classList.remove('reading-letter','letter-finished');celebration?.reset();music.reset();motion?.reset();state.started=state.playing=false;travelTo=null;$('ending').hidden=true;$('intro').classList.remove('out');$('intro').inert=false;document.body.classList.remove('started');$('controls').hidden=true;setProgress(0);$('start').focus({preventScroll:true})}
 function openLetter(){if(!motion||busy())return;state.playing=false;travelTo=null;setProgress(1);cameraPose();$('controls').hidden=true;$('envelope').hidden=true;$('letterPrelude').hidden=true;$('chapter').textContent='';document.body.classList.remove('letter-finished');document.body.classList.add('reading-letter');motion.open();music.update(true,true);$('book').setAttribute('aria-modal','true');$('world').inert=true;document.querySelector('header').inert=true;invalidate()}
 function finish(){motion?.finish();invalidate()}
-function showEnding(){birthdayFilm.refresh();$('ending').hidden=false;$('ending').focus();updateUI();invalidate()}
+function showEnding(){$('ending').hidden=false;$('ending').focus();updateUI();invalidate()}
 function startCelebration(){state.playing=false;travelTo=null;$('ending').hidden=true;cameraPose();celebration.start();updateUI();invalidate()}
 
 function showPage(i){state.page=i;const m=memories[i];$('memory').src=m.image;$('memory').alt=m.alt;$('photoCaption').textContent=m.caption;$('pageLabel').textContent=`回憶 ${String(i+1).padStart(2,'0')}  /  給六百`;$('pageTitle').textContent=m.title;$('pageText').textContent=m.text;$('pageText').style.whiteSpace='pre-line';$('pageNumber').textContent=`${String(i+1).padStart(2,'0')}  /  ${String(memories.length).padStart(2,'0')}`;$('prev').disabled=i===0;$('next').textContent=i===memories.length-1?'✓':'→';$('next').setAttribute('aria-label',i===memories.length-1?'收好信件':'下一頁');$('swipeHint').textContent=i===memories.length-1?'再向左滑就能收好信':'左右滑動翻頁';const body=$('book').querySelector('.book-body');body.classList.remove('arrived');void body.offsetWidth;body.classList.add('arrived')}
@@ -69,7 +66,7 @@ window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setT
  tour=createTour({mobile:mobile(),aspect:innerWidth/innerHeight});motion?.resize();invalidate();
 },100)});
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(document.hidden){cancelAnimationFrame(raf);raf=0;state.playing=false;updateUI()}else invalidate()});
-async function init(){try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(pixelRatio());renderer.setSize(innerWidth,innerHeight,false);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;$('world').append(renderer.domElement);scene=new T.Scene();camera=new T.PerspectiveCamera(mobile()?53:46,innerWidth/innerHeight,.05,150);const assets=await buildScene(scene,renderer,invalidate);celebration=createCelebration({camera,cake:assets.cake,reduced,onWake:invalidate,onFinish:showEnding});motion=createLetterMotion(scene,assets.letter,camera,reduced,showPage,()=>{$('world').inert=false;document.querySelector('header').inert=false;$('book').removeAttribute('aria-modal');document.body.classList.remove('reading-letter');document.body.classList.add('letter-finished');if(birthdayFilm.refresh().ready)showEnding();else startCelebration()});cameraPose();await renderer.compileAsync(scene,camera);state.loaded=true;$('loading').hidden=true;$('start').disabled=false;renderer.render(scene,camera);renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();fail(new Error('3D 顯示中斷，請重新載入。'))});invalidate()}catch(e){fail(e)}}
+async function init(){try{renderer=new T.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setPixelRatio(pixelRatio());renderer.setSize(innerWidth,innerHeight,false);renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95;renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;$('world').append(renderer.domElement);scene=new T.Scene();camera=new T.PerspectiveCamera(mobile()?53:46,innerWidth/innerHeight,.05,150);const assets=await buildScene(scene,renderer,invalidate);celebration=createCelebration({camera,cake:assets.cake,reduced,onWake:invalidate,onFinish:showEnding});motion=createLetterMotion(scene,assets.letter,camera,reduced,showPage,()=>{$('world').inert=false;document.querySelector('header').inert=false;$('book').removeAttribute('aria-modal');document.body.classList.remove('reading-letter');document.body.classList.add('letter-finished');startCelebration()});cameraPose();await renderer.compileAsync(scene,camera);state.loaded=true;$('loading').hidden=true;$('start').disabled=false;renderer.render(scene,camera);renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();fail(new Error('3D 顯示中斷，請重新載入。'))});invalidate()}catch(e){fail(e)}}
 const seal=new T.Vector3(),previousPosition=new T.Vector3(),previousQuaternion=new T.Quaternion();let previousFov=-1,previousOpening=-1;
 function frame(now){
  raf=0;if(failed||document.hidden)return;inFrame=true;
