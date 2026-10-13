@@ -1,0 +1,1 @@
+Birthday film-only photos. All seven source images differ from the website gallery and letter images. Four phone originals; three IG screenshots clipped to photo areas, without account, interface, carousel counter or sound icon. Personal photos are provided for this birthday gift, not openly licensed.

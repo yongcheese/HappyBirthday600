@@ -15,7 +15,7 @@ export const galleryPhotos = [
  {id:'front-left', side:-1, z:3.65, image:photo('classroom-portrait'), caption:'今天妳生日', subtitle:'先放一張壽星的照片。'},
  {id:'front-right', side:1, z:3.65, image:photo('classroom-friends'), caption:'教室裡的合照', subtitle:'在教室也要拍一下。太抽象了～'},
  {id:'middle-right', side:1, z:.45, image:photo('festival-friends'), caption:'一起去音樂節', subtitle:'去音樂節，還有跟朋友一起拍照。'},
- {id:'middle-left', side:-1, z:.45, image:photo('happy-friend'), caption:'謝謝妳這個開心果', subtitle:'謝謝妳這個開心果，帶來那麼多快樂。'},
+ {id:'middle-left', side:-1, z:.45, image:photo('happy-friend'), caption:'謝謝妳帶來那麼多歡笑', subtitle:'謝謝妳帶來那麼多歡笑。'},
  {id:'back-left', side:-1, z:-2.75, image:photo('cat-at-home'), caption:'還有妳家的貓', subtitle:'當然也不能少了妳家的貓。'},
  {id:'back-right', side:1, z:-2.75, images:favoriteArtists, caption:'PIZZALI ／ 美秀集團', subtitle:'還有妳喜歡的 PIZZALI 跟美秀。'}
 ];
