@@ -10,9 +10,9 @@
 #foamCan:before{content:"";position:absolute;top:-18px;left:8px;width:40px;height:20px;border-radius:7px;background:#f8fcfb;box-shadow:20px -5px 0 -3px #fff}
 #foamCan:after{content:"生日快樂";position:absolute;top:36px;left:9px;width:34px;font-size:14px;line-height:1.25;text-align:center;color:#345b61}
 .foam-hit #foamCan{animation:can-enter 2s ease both}
-#birthdayEgg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#fbf6ecef;text-align:center;pointer-events:auto;animation:egg-enter .6s ease both}
-#birthdayEgg .egg-cake{font-size:52px;margin-bottom:18px}#birthdayEgg h2{font-size:clamp(29px,5vw,42px);font-weight:600;line-height:1.5;margin:0 0 16px;font-family:"Songti TC","Noto Serif TC",serif}
-#birthdayEgg p{font-size:18px;line-height:1.85;max-width:540px;margin:0 0 16px}#birthdayEgg .egg-joke{font-size:16px;color:#746252;margin:0 0 26px}
+#birthdayEgg{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:26px 24px calc(24px + env(safe-area-inset-bottom));background:linear-gradient(to bottom,transparent 48%,#fbf6ec38 57%,#fbf6ecf5 70%);text-align:center;pointer-events:auto;animation:egg-enter .6s ease both}
+#birthdayEgg .egg-cake{font-size:52px;margin-bottom:18px}#birthdayEgg h2{font-size:clamp(29px,5vw,42px);font-weight:600;line-height:1.5;margin:0 0 8px;font-family:"Songti TC","Noto Serif TC",serif}
+#birthdayEgg p{font-size:18px;line-height:1.65;max-width:540px;margin:0 0 8px}#birthdayEgg .egg-joke{font-size:16px;color:#746252;margin:0 0 16px}
 @keyframes lens-cover{0%,35%,100%{opacity:0}54%,72%{opacity:.95}}
 @keyframes can-enter{0%{transform:translate(0,0) rotate(35deg);opacity:0}20%,70%{transform:translate(110px,-120px) rotate(35deg);opacity:1}100%{transform:translate(0,0) rotate(35deg);opacity:0}}
 @keyframes egg-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -20,3 +20,7 @@
 @media(prefers-reduced-motion:reduce){.foam-hit #foamLens:after{animation:lens-cover .8s ease both}#foamCan{display:none}#birthdayEgg{animation:none}}
 
 body.celebrating #restart,body.celebrating #musicDock{visibility:hidden;pointer-events:none}
+
+@media(max-height:600px) and (orientation:landscape){#birthdayEgg{align-items:flex-end;padding-right:5vw;background:linear-gradient(to right,transparent 40%,#fbf6ecf5 70%)}#birthdayEgg h2{font-size:26px}#birthdayEgg p{font-size:16px}#birthdayEgg .egg-joke{font-size:14px}#birthdayEgg h2,#birthdayEgg p{width:42vw}}
+
+#celebration[data-phase="egg"] #skipCelebration{display:none}

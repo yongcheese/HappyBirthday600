@@ -1,5 +1,5 @@
 import * as T from 'three';
-import { galleryPhotos } from './content.js?v=20261014-letter01';
+import { galleryPhotos } from './content.js?v=20261014-cake01';
 const v=a=>new T.Vector3(...a);
 const smooth=t=>t*t*t*(t*(t*6-15)+10);
 // Timed physical viewpoints. Each photograph gets an uninterrupted 2 s hold.

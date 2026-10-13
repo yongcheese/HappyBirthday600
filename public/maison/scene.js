@@ -2,8 +2,9 @@ import * as T from 'three';
 import { GLTFLoader } from '../birthday-3d/vendor/GLTFLoader.js';
 import { HDRLoader } from '../birthday-3d/vendor/HDRLoader.js';
 import { mergeGeometries } from '../birthday-3d/vendor/BufferGeometryUtils.js';
-import { galleryPhotos } from './content.js?v=20261014-letter01';
-import {createCafeShell} from './cafe-shell.js?v=20261014-letter01';
+import { galleryPhotos } from './content.js?v=20261014-cake01';
+import {create600Cake} from './cake-finale.js?v=20261014-cake01';
+import {createCafeShell} from './cafe-shell.js?v=20261014-cake01';
 const PI=Math.PI;
 let seed=912;const rnd=()=>((seed=Math.imul(seed,1664525)+1013904223|0)>>>0)/4294967296;
 export async function buildScene(scene,renderer,invalidate){
@@ -129,7 +130,8 @@ export async function buildScene(scene,renderer,invalidate){
  // Fixed geometry joins the existing material batches; no extra render loop/lights.
  const cakeX=.62,cakeZ=-4.91;
  const cream=mat('Vanilla buttercream','#fff0d4',.72),icing=mat('Piped cream','#fff7e5',.6),berry=mat('Strawberry glaze','#b94742',.38),sage=mat('Birthday candle coral','#d98468',.52);
- const cakePart=(g,m,x,y,z,name)=>add(g,m,[cakeX+x,y,cakeZ+z],name);
+ let cakeParent=permanent;
+ const cakePart=(g,m,x,y,z,name)=>add(g,m,[cakeX+x,y,cakeZ+z],name,cakeParent);
  cakePart(new T.CylinderGeometry(.21,.23,.035,48),linen,0,.865,0,'Cake stand foot');
  cakePart(new T.CylinderGeometry(.055,.075,.11,24),brass,0,.93,0,'Cake stand stem');
  cakePart(new T.CylinderGeometry(.32,.30,.03,64),icing,0,.994,0,'Porcelain cake platter');
@@ -139,12 +141,15 @@ export async function buildScene(scene,renderer,invalidate){
  for(const y of [1.027,1.272])for(let i=0;i<32;i++){
   const a=i*PI*2/32,puff=cakePart(new T.SphereGeometry(.023,10,7),icing,Math.cos(a)*.244,y,Math.sin(a)*.244,'Piped frosting shell');puff.scale.set(1,.72,1);
  }
+ const fruit=new T.Group();fruit.name='Original strawberry topping';root.add(fruit);cakeParent=fruit;
  for(let i=0;i<5;i++){
   const a=i*PI*2/5+.35,x=Math.cos(a)*.177,z=Math.sin(a)*.177;
   const fruitProfile=[[0,0],[.031,.004],[.039,.022],[.031,.052],[.016,.077],[0,.085]].map(p=>new T.Vector2(...p));
   cakePart(new T.LatheGeometry(fruitProfile,16),berry,x,1.28,z,'Strawberry');
   for(let j=0;j<3;j++){const angle=j*PI*2/3,leaf=cakePart(new T.SphereGeometry(.023,8,5),leafmat,x+Math.cos(angle)*.013,1.285,z+Math.sin(angle)*.013,'Strawberry leaf');leaf.scale.set(1,.15,.45);leaf.rotation.y=-angle}
  }
+ cakeParent=permanent;
+ const finale=create600Cake({root,x:cakeX,z:cakeZ,cream,fruit});
  const flames=new T.Group();flames.name='Birthday candle flames';flames.visible=false;root.add(flames);
  const flameMat=new T.MeshBasicMaterial({color:'#ffd784'});
  for(const [x,z,h] of [[-.075,.005,.115],[.075,.005,.115],[0,-.065,.15]]){
@@ -181,5 +186,5 @@ export async function buildScene(scene,renderer,invalidate){
  // Environment is optional: core interactive scene is already ready if it fails.
  new HDRLoader().load('../birthday-3d/assets/tuscan/garden-sunset.hdr',t=>{t.mapping=T.EquirectangularReflectionMapping;scene.environment=t;scene.environmentIntensity=.28;scene.environmentRotation.y=2.2;invalidate();},undefined,()=>{});
  renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
- return {letter:letter.scene,root,cake:{flames,center:[cakeX,1.24,cakeZ]}};
+ return {letter:letter.scene,root,cake:{flames,finale,center:[cakeX,1.24,cakeZ]}};
 }

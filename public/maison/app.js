@@ -1,12 +1,12 @@
 import * as T from 'three';
-import {buildScene} from './scene.js?v=20261014-letter01';
-import {createLetterMotion} from './letter-motion.js?v=20261014-letter01';
-import {memories,galleryPhotos} from './content.js?v=20261014-letter01';
-import {createTour} from './tour.js?v=20261014-letter01';
-import {birthdayVideo} from './delivery-config.js?v=20261014-letter01';
-import {createBirthdayVideo} from './birthday-video.js?v=20261014-letter01';
-import {createMusic} from './music.js?v=20261014-letter01';
-import {createCelebration} from './celebration.js?v=20261014-letter01';
+import {buildScene} from './scene.js?v=20261014-cake01';
+import {createLetterMotion} from './letter-motion.js?v=20261014-cake01';
+import {memories,galleryPhotos} from './content.js?v=20261014-cake01';
+import {createTour} from './tour.js?v=20261014-cake01';
+import {birthdayVideo} from './delivery-config.js?v=20261014-cake01';
+import {createBirthdayVideo} from './birthday-video.js?v=20261014-cake01';
+import {createMusic} from './music.js?v=20261014-cake01';
+import {createCelebration} from './celebration.js?v=20261014-cake01';
 const music=createMusic();
 const birthdayFilm=createBirthdayVideo(birthdayVideo,{beforePlay:()=>music.stop(),afterEnded:()=>startCelebration()});
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -87,7 +87,8 @@ function frame(now){
   // Card extraction/paging runs in the compositor; only flap motion changes 3D geometry.
   const flapMoving=phase==='opening'||phase==='closing';
   if(dirty&&!state.playing||cameraChanged||flapMoving||phaseChanged||celebration.changes3D){
-   renderer.shadowMap.needsUpdate ||= flapMoving||phaseChanged;
+   const cakeShadowChanged=celebration.takeShadowUpdate();
+   renderer.shadowMap.needsUpdate ||= flapMoving||phaseChanged||cakeShadowChanged;
    renderer.render(scene,camera);
   }
   previousPosition.copy(camera.position);previousQuaternion.copy(camera.quaternion);previousFov=camera.fov;previousOpening=opening;
@@ -98,7 +99,7 @@ function frame(now){
  inFrame=false;
  if(state.playing||travelTo||!['closed','reading'].includes(motion.phase)||celebration.needsFrames)raf=requestAnimationFrame(frame);
 }
-window.maison={get birthdayPhase(){return celebration?.phase},get candlesLit(){return celebration?.active&&scene.getObjectByName("Birthday candle flames").visible},get tourStops(){return tour.stops},get tourDuration(){return tour.duration},get galleryFrames(){return galleryPhotos.map(photo=>({id:photo.id,corners:[[-.995,-.745],[.995,-.745],[.995,.745],[-.995,.745]].map(([z,y])=>new T.Vector3(photo.side*3.06,1.94+y,photo.z+z).project(camera).toArray())}))},get loaded(){return state.loaded},get progress(){return state.progress},get phase(){return motion?.phase},get page(){return state.page},get stats(){return renderer?.info},setProgress(p){if(!state.started)begin();state.playing=false;setProgress(p)}};
+window.maison={get birthdayPhase(){return celebration?.phase},get cakePersonalized(){return !!scene?.getObjectByName("600 birthday cake")?.visible},get candlesLit(){return celebration?.active&&scene.getObjectByName("Birthday candle flames").visible},get tourStops(){return tour.stops},get tourDuration(){return tour.duration},get galleryFrames(){return galleryPhotos.map(photo=>({id:photo.id,corners:[[-.995,-.745],[.995,-.745],[.995,.745],[-.995,.745]].map(([z,y])=>new T.Vector3(photo.side*3.06,1.94+y,photo.z+z).project(camera).toArray())}))},get loaded(){return state.loaded},get progress(){return state.progress},get phase(){return motion?.phase},get page(){return state.page},get stats(){return renderer?.info},setProgress(p){if(!state.started)begin();state.playing=false;setProgress(p)}};
 // Decode letter photos while the visitor starts the tour; artwork loads with the scene.
 let memoriesPrepared=false;
 function prepareMemories(){if(memoriesPrepared)return;memoriesPrepared=true;for(const {image} of memories){const img=new Image();img.src=image;img.decode().catch(()=>{});}}
