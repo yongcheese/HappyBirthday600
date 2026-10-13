@@ -8,7 +8,7 @@ async function copy(relative){const target=join(output,relative);await mkdir(dir
 // Explicit delivery list: keep old scenes, source models and audit captures out of Pages.
 for(const entry of await readdir(join(root,'public/maison'))){if(/\.(html|css|js)$/.test(entry))await copy(`maison/${entry}`);}
 await copy('maison/assets/letter.glb');
-for(const entry of ['birthday600.mp4','birthday600-poster.jpg','SOURCES.md'])await copy(`maison/assets/video/${entry}`);
+for(const entry of ['birthday600-v2.mp4','birthday600-v2-poster.jpg','SOURCES.md'])await copy(`maison/assets/video/${entry}`);
 for(const entry of await readdir(join(root,'public/maison/assets/photos'))){if(entry!=='bench-friends.webp'&&/\.(webp|md)$/.test(entry))await copy(`maison/assets/photos/${entry}`);}
 for(const entry of ['three.module.js','three.core.js','GLTFLoader.js','HDRLoader.js','BufferGeometryUtils.js','LICENSE.three.txt'])await copy(`birthday-3d/vendor/${entry}`);
 for(const entry of ['garden-sunset.hdr','ENVIRONMENT.txt'])await copy(`birthday-3d/assets/tuscan/${entry}`);
